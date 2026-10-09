@@ -27,10 +27,9 @@ class ContaTest {
     @Test
     void deveImpedirSaqueSemSaldo() {
         Conta conta = new Conta("João", 500, TipoConta.CORRENTE);
-
-        assertThrows(SaldoInsuficienteException.class, () -> {
-            conta.sacar(1000);
-        });
+        // () -> é uma expressão lambda que mostra ao JUnit
+        // o código que deve ser executado e verificado
+        assertThrows(SaldoInsuficienteException.class, () -> conta.sacar(1000));
 
         assertEquals(500, conta.getSaldo());
     }
