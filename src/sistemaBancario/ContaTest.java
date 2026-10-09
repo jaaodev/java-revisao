@@ -34,4 +34,12 @@ class ContaTest {
         assertEquals(500, conta.getSaldo());
     }
 
+    @Test
+    void deveImpedirSaldoInicialNegativo() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Conta conta = new Conta("João", -500, TipoConta.CORRENTE);
+    // Cada teste deve funcionar sozinho, independentemente da ordem em que o JUnit executar os outros.
+        });
+    }
+
 }

@@ -26,9 +26,14 @@ public class Conta implements OperacoesBancarias {
      private TipoConta tipoConta;
 
     public Conta(String titular, double saldo, TipoConta tipoConta) {
+        if (saldo<0) {
+            throw new IllegalArgumentException("Saldo inicial não pode ser negativo");
+        }
+
         this.titular = titular;
         this.saldo = saldo;
         this.tipoConta = tipoConta;
+
     }
 
     public String getTitular() {
