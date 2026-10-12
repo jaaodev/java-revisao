@@ -24,5 +24,32 @@ public class FuncionariosOrdenacao {
                     System.out.println("------------------");
                 });
 
+        System.out.println("--- Salários menores ou iguais a 4500 ---");
+        funcionarios.stream()
+                .filter(f -> f.getSalario() <= 4500)
+                .forEach(f -> System.out.println(
+                        f.getNome() + " - " + f.getSalario()));
+
+        System.out.println(" --- LISTA DE FUNCIONARIOS FILTRADOS COM toList");
+        List<Funcionario> funcionariosFiltrados = funcionarios.stream()
+                .filter(f -> f.getSalario()>4000)
+                .toList();
+        funcionariosFiltrados
+                .forEach(f -> System.out.println(
+                        f.getNome() + " - " + f.getSalario()));
+        System.out.println("-------------------------");
+        System.out.println("Total original: " + funcionarios.size());
+        System.out.println("Total filtrado: " + funcionariosFiltrados.size());
+
+        System.out.println("................................");
+        System.out.println("Funcionários com salário acima de 4000");
+        List<String> nomesBemPagos = funcionarios.stream()
+                .filter(f -> f.getSalario() > 4000)
+                .map(f -> f.getNome())
+                .toList();
+        nomesBemPagos.forEach(nomes -> System.out.println(nomes));
+
+
+
     }
 }
