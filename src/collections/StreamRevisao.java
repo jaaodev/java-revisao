@@ -140,7 +140,7 @@ public class StreamRevisao {
                 "Ana",
                 "Pedro"
         );
-        System.out.println("--groupingBy--");
+        System.out.println("--groupingBy--"); //agrupa elementos em vários grupos de acordo com algum critério.
         Map<Integer, List<String>> resultadoNomes1 =
                 nomes1.stream()
                         .collect(Collectors.groupingBy(nome -> nome.length()));
@@ -152,7 +152,8 @@ public class StreamRevisao {
                 várias instruções → chaves obrigatórias;
                 com bloco {} e retorno de valor → geralmente precisa de return.
          */
-        System.out.println("--partitioningBy--");
+        System.out.println("--partitioningBy--"); //separa os elementos em apenas dois grupos, usando uma condição booleana.
+                                                  //As chaves sempre são true e false.
         List<Funcionario> funcionarios = new ArrayList<>();
         funcionarios.add(new Funcionario("Carlos", 6000));
         funcionarios.add(new Funcionario("João", 3000));
@@ -166,7 +167,7 @@ public class StreamRevisao {
                 System.out.println(chave + " - " + valor)
         );
 
-        System.out.println("---- flatMap ----");
+        System.out.println("---- flatMap ----"); //serve para achatar estruturas aninhadas.
         List<List<Integer>> numeros7 = List.of(
                 List.of(1, 2, 3),
                 List.of(4, 5),
