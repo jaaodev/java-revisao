@@ -4,6 +4,11 @@ public class Funcionario {
     private String nome;
     private double salario;
 
+    @Override
+    public String toString() {
+        return nome + " - R$ " + salario;
+    }
+
     public Funcionario(String nome, double salario) {
         if (nome == null || nome.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome inválido!");

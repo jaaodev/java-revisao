@@ -1,8 +1,10 @@
 package collections;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamRevisao {
     public static void main(String[] args) {
@@ -105,5 +107,79 @@ public class StreamRevisao {
                 .findAny()
                 .orElse(-1);
         System.out.println(algumNumero);
+
+        System.out.println("---- reduce() ----"); //reduce(valor inicial, (acumalador, elemento atual) ->
+        List<Integer> numeros6 = List.of(
+                5, 10, 15, 20
+        );
+        int soma = numeros6.stream()
+                .reduce(0, (a, n) -> a + n);
+        System.out.println(soma);
+        int multiplicacao = numeros6.stream()
+                .reduce(1, (a, n) -> a * n);
+        System.out.println(multiplicacao);
+        int maiorNum = numeros6.stream()
+                .reduce(0, (a, n) -> a > n ? a : n);
+        System.out.println(maiorNum);
+
+        System.out.println("---- collect() e Collectors ----");
+        List<String> nomes = List.of(
+                "Carlos",
+                "Maria",
+                "João"
+        );
+        System.out.println("--joining--");
+        String resultadoNomes =
+                nomes.stream()
+                        .collect(Collectors.joining(" - ")); //o joining pega vários elementos String de uma Stream
+        System.out.println(resultadoNomes);                           //e junta tudo dentro de uma única String
+        List<String> nomes1 = List.of(
+                "Carlos",
+                "Maria",
+                "João",
+                "Ana",
+                "Pedro"
+        );
+        System.out.println("--groupingBy--");
+        Map<Integer, List<String>> resultadoNomes1 =
+                nomes1.stream()
+                        .collect(Collectors.groupingBy(nome -> nome.length()));
+        resultadoNomes1.forEach((chave, valor) -> {
+            System.out.println(chave + " - " + valor);
+        });
+        /*
+                uma instrução → chaves opcionais;
+                várias instruções → chaves obrigatórias;
+                com bloco {} e retorno de valor → geralmente precisa de return.
+         */
+        System.out.println("--partitioningBy--");
+        List<Funcionario> funcionarios = new ArrayList<>();
+        funcionarios.add(new Funcionario("Carlos", 6000));
+        funcionarios.add(new Funcionario("João", 3000));
+        funcionarios.add(new Funcionario("Maria", 4500));
+        Map<Boolean, List<Funcionario>> resultadoFuncionarios =
+                funcionarios.stream()
+                        .collect(Collectors.partitioningBy(
+                                f -> f.getSalario() >= 4500
+                        ));
+        resultadoFuncionarios.forEach((chave, valor) ->
+                System.out.println(chave + " - " + valor)
+        );
+
+        System.out.println("---- flatMap ----");
+        List<List<Integer>> numeros7 = List.of(
+                List.of(1, 2, 3),
+                List.of(4, 5),
+                List.of(6, 7, 8)
+        );
+        List<Integer> numerosFlatMap =
+                numeros7.stream()
+                        .flatMap(lista -> lista.stream())
+                        .filter(n -> n % 2 == 0)
+                        .map(n -> n * 10)
+                        .sorted()
+                        .toList();
+        System.out.println(numerosFlatMap);
+
     }
 }
